@@ -1,0 +1,72 @@
+name: Daily Project Review
+
+on:
+  # 01:00 UTC is 02:00 during BST; 02:00 UTC is 02:00 during GMT. The guard
+  # below chooses whichever is actually 02:00 in Europe/London.
+  schedule:
+    - cron: "0 1,2 * * *"
+  workflow_dispatch:
+    inputs:
+      repo:
+        description: "Watched repo, e.g. hollowayluke20/daily-brief"
+        default: "hollowayluke20/daily-brief"
+      plan:
+        description: "Plan file inside the watched repo"
+        default: ".scratch/reviewer-finish/map.md"
+
+permissions:
+  contents: write
+  pull-requests: read
+
+concurrency:
+  group: project-review
+  cancel-in-progress: false
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the reviewer
+        uses: actions/checkout@v5
+      - name: Check out the project being reviewed
+        uses: actions/checkout@v5
+        with:
+          repository: ${{ inputs.repo || 'hollowayluke20/daily-brief' }}
+          token: ${{ secrets.PROJECT_REVIEW_TOKEN }}
+          path: project
+          fetch-depth: 0
+      - name: Check local review time
+        id: time
+        run: |
+          hour="$(TZ=Europe/London date +%H)"
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] || [ "$hour" = "02" ]; then echo "run=true" >> "$GITHUB_OUTPUT"; else echo "run=false" >> "$GITHUB_OUTPUT"; fi
+      - uses: actions/setup-python@v6
+        if: steps.time.outputs.run == 'true'
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        if: steps.time.outputs.run == 'true'
+        run: python -m pip install -r requirements.txt
+      - name: Write and email review
+        if: steps.time.outputs.run == 'true'
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          GH_TOKEN: ${{ github.token }}
+          EMAIL_RECIPIENTS: ${{ vars.EMAIL_RECIPIENTS || secrets.GMAIL_ADDRESS }}
+        run: python scripts/review_project.py --repo project --plan project/${{ inputs.plan || '.scratch/reviewer-finish/map.md' }} --email
+      - name: Commit review
+        if: steps.time.outputs.run == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          cd project
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add reviews/
+          git diff --cached --quiet && echo "No new review to commit" && exit 0
+          git commit -m "Project review for $(TZ=Europe/London date -d 'yesterday' +%F)"
+          git pull --rebase origin main
+          git push
