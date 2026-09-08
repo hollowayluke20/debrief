@@ -8,11 +8,11 @@ on:
   workflow_dispatch:
     inputs:
       repo:
-        description: "Watched repo, e.g. hollowayluke20/daily-brief"
-        default: "hollowayluke20/daily-brief"
+        description: "Watched repo, e.g. hollowayluke20/ai-take-the-wheel"
+        default: "hollowayluke20/ai-take-the-wheel"
       plan:
         description: "Plan file inside the watched repo"
-        default: ".scratch/reviewer-finish/map.md"
+        default: ".scratch/attw-prototype/map.md"
 
 permissions:
   contents: write
@@ -31,7 +31,7 @@ jobs:
       - name: Check out the project being reviewed
         uses: actions/checkout@v5
         with:
-          repository: ${{ inputs.repo || 'hollowayluke20/daily-brief' }}
+          repository: ${{ inputs.repo || 'hollowayluke20/ai-take-the-wheel' }}
           token: ${{ secrets.PROJECT_REVIEW_TOKEN || github.token }}
           path: project
           fetch-depth: 0
@@ -56,7 +56,7 @@ jobs:
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
           GH_TOKEN: ${{ github.token }}
           EMAIL_RECIPIENTS: ${{ vars.EMAIL_RECIPIENTS || secrets.GMAIL_ADDRESS }}
-        run: python scripts/review_project.py --repo project --plan project/${{ inputs.plan || '.scratch/reviewer-finish/map.md' }} --email
+        run: python scripts/review_project.py --repo project --plan project/${{ inputs.plan || '.scratch/attw-prototype/map.md' }} --email
       - name: Commit review
         if: steps.time.outputs.run == 'true'
         run: |
