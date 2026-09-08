@@ -32,7 +32,7 @@ jobs:
         uses: actions/checkout@v5
         with:
           repository: ${{ inputs.repo || 'hollowayluke20/daily-brief' }}
-          token: ${{ secrets.PROJECT_REVIEW_TOKEN }}
+          token: ${{ secrets.PROJECT_REVIEW_TOKEN || github.token }}
           path: project
           fetch-depth: 0
       - name: Check local review time
