@@ -12,7 +12,7 @@ the reviewer runs — no other setup in the watched repo.
 ## What lands each morning
 
 A separate email with four sections: where the project stands, what happened
-yesterday, on track or not (blunt), and tomorrow as 10–12 tasks in fixed
+yesterday, on track or not (blunt), and tomorrow as 8–12 tasks in fixed
 2-hour tiers, most important first. Tiers learn Luke's pace from the
 completion rate. Reports are also committed into the watched repo's
 `reviews/` folder as history.

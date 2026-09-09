@@ -1,6 +1,6 @@
 ## Destination
 
-Debrief runs nightly from its own repo: every morning a blunt 10–12-task list lands by separate email, sized in fixed 2-hour tiers, with reports committed as history.
+Debrief runs nightly from its own repo: every morning a blunt 8–12-task list lands by separate email, sized in fixed 2-hour tiers, with reports committed as history.
 
 ## Notes
 

@@ -50,7 +50,7 @@ Scheduled at 21:00 local, via the same GitHub Action pattern the newsletter uses
      so directly. If work went sideways or belongs to a later stage, say that
      plainly rather than finding a way to call it progress. Being critical here
      is the whole point of the tool.
-   - **TOMORROW** — 10 to 12 small, tickable tasks that push hard, split into
+   - **TOMORROW** — 8 to 12 small, tickable tasks that push hard, split into
      fixed 2-hour tiers ordered by importance and labeled exactly **FIRST 2
      HOURS**, **NEXT 2 HOURS**, and so on. Each tier holds the most important
      remaining work. Each task names the files or area involved and why it
@@ -59,7 +59,7 @@ Scheduled at 21:00 local, via the same GitHub Action pattern the newsletter uses
      most important project first, and make the combined list deliberately
      overfull; never trim it to fit one day. On a genuinely quiet day honesty
      wins over the count: say the day was quiet and give only what the work
-     warrants, never invent filler to reach 10. Even when nothing reached GitHub,
+      warrants, never invent filler to reach 8. Even when nothing reached GitHub,
      still give the full tiered list from the open issues, marked as assuming
      unpushed work, so there is always a list to work from. The reviewer is blunt:
      sideways work is named plainly, never softened.
