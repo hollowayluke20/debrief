@@ -39,7 +39,10 @@ jobs:
         id: time
         run: |
           hour="$(TZ=Europe/London date +%H)"
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ] || [ "$hour" = "02" ]; then echo "run=true" >> "$GITHUB_OUTPUT"; else echo "run=false" >> "$GITHUB_OUTPUT"; fi
+          # GitHub's own cron can arrive hours late; cron-job.org dispatches at
+          # 02:05 London time. Either way, any run from 02:00 onward counts —
+          # review_project.py already skips when today's report exists.
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] || [ "$hour" -ge 2 ]; then echo "run=true" >> "$GITHUB_OUTPUT"; else echo "run=false" >> "$GITHUB_OUTPUT"; fi
       - uses: actions/setup-python@v6
         if: steps.time.outputs.run == 'true'
         with:
