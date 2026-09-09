@@ -59,7 +59,9 @@ Scheduled at 21:00 local, via the same GitHub Action pattern the newsletter uses
      most important project first, and make the combined list deliberately
      overfull; never trim it to fit one day. On a genuinely quiet day honesty
      wins over the count: say the day was quiet and give only what the work
-     warrants, never invent filler to reach 10. The reviewer is blunt:
+     warrants, never invent filler to reach 10. Even when nothing reached GitHub,
+     still give the full tiered list from the open issues, marked as assuming
+     unpushed work, so there is always a list to work from. The reviewer is blunt:
      sideways work is named plainly, never softened.
 4. Write the report to `reviews/YYYY-MM-DD.md` and commit it.
 5. Email the report as its own message, immediately after writing it. Reuse the
@@ -105,5 +107,5 @@ Three rules earned by running the reviewer against real finished repos (kage, le
 6. **The report lives with the project it reviews.** Reports are written to a `reviews/` folder inside the repo being reviewed and committed there each day, so the history of how a project was built sits with the project. To stop the reviewer reading its own writing back as work, the `reviews/` folder is excluded when gathering a day's commits.
 7. **Plan changes are shown to the reviewer.** Each run is told what changed in the plan file itself during the period under review. A day spent rewording the plan otherwise looks identical to a day spent building, and a moved finish-line makes the reviewer appear to contradict yesterday for reasons that have nothing to do with the project. Editing the plan is work, but it is not progress toward a stage, and the report must not credit it as such. Only visible when the plan lives inside the repo being reviewed.
 8. **Work in flight.** The reviewer runs on a server against a pushed copy of the project, so it cannot see a batch running on the author's machine. The project leaves a note at `IN-PROGRESS.md` describing what is running; the reviewer treats that work as done, does not propose it as a task, does not call the night idle because nothing was committed, and instead says its results need checking and proposes what follows from it.
-9. **An empty day is ambiguous.** No commits reaching the repository can mean a quiet day or unpushed work, and the reviewer cannot tell which. It must say so rather than reporting an idle day, and must not re-issue yesterday's tasks as though nothing happened.
+9. **An empty day is ambiguous.** No commits reaching the repository can mean a quiet day or unpushed work, and the reviewer cannot tell which. It must say so rather than reporting an idle day — but it still gives the full tiered list from the open issues, marked as assuming unpushed work.
 10. **Pace rule.** The reviewer compares yesterday's TOMORROW tasks with today's commit subjects, treating a task as done when at least three significant words match. It supplies the resulting completion rate as evidence and grows tomorrow's tiers after a high rate or shrinks them after a low one.

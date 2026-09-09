@@ -19,6 +19,7 @@ def test_prompt_demands_fixed_two_hour_tiers() -> None:
     assert "never soften a bad day" in text
     assert "names the files or area involved and why it advances" in text
     assert "never invent filler to reach 10" in text
+    assert "always a list to work from" in text
 
 
 def test_spec_demands_fixed_two_hour_tiers() -> None:
@@ -31,6 +32,7 @@ def test_spec_demands_fixed_two_hour_tiers() -> None:
     assert "never softened" in tomorrow
     assert "names the files or area involved" in tomorrow
     assert "never invent filler to reach 10" in tomorrow
+    assert "always a list to work from" in tomorrow
 
 
 if __name__ == "__main__":
